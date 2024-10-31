@@ -48,12 +48,12 @@ model Expense{
 
 model Split{
   id          Int @id @default(autoincrement())
-  amount      Float
+  percentage  Float
   user        User @relation(fields: [userId], references: [id])
   userId      Int
   expenses    Expense @relation(fields: [expenseId], references: [id])
   expenseId   Int
-
+   
   created_at  DateTime @default(now())
 }
 

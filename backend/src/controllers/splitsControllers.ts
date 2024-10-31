@@ -3,13 +3,13 @@ import Prisma from "../prismaClient";
 
 // to  create a expense
 export const createSplit = async(req: Request, res: Response)=>{
-    const { amount, userId, expenseId} = req.body;
+    const { percentage, userId, expenseId} = req.body;
 
     try{
         const newSplit = await Prisma.split.create({
             data:{
                 
-                amount,
+                percentage,
                 userId,
                 expenseId
 
@@ -31,15 +31,15 @@ export const getSplits = async(req: Request, res: Response)=>{
     }
 };
 
-// uto delete an expense 
+// to delete an expense 
 export const updateSplit = async(req: Request, res: Response)=>{
-    const {id, amount} = req.body;
+    const {id, percentage} = req.body;
     try{
         const newSplit = await Prisma.split.update({
             where: {id},
-            data: {amount}
+            data: {percentage}
         });
-        res.status(201).json(`split Updated successsfully to ${newSplit.amount}`);
+        res.status(201).json(`split Updated successsfully to ${newSplit.percentage}`);
     }catch (error) {
         res.status(500).json({error: "failed to update the split"})
     }
