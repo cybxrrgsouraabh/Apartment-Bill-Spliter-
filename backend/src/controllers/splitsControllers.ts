@@ -44,3 +44,4 @@ export const updateSplit = async(req: Request, res: Response)=>{
         res.status(500).json({error: "failed to update the split"})
     }
 };
+
