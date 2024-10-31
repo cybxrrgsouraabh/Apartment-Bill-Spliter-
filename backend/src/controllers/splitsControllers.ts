@@ -17,7 +17,7 @@ export const createSplit = async(req: Request, res: Response)=>{
         })
         res.status(201).json(newSplit);
     }catch (error) {
-        res.status(500).json({error: "failed to create a new split "})
+        res.status(500).json({error: `failed to create a new split, ${error}` })
     }
 };
 

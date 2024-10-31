@@ -1,7 +1,7 @@
 import app from "./app";
 import cors from "cors"
 
-const port = 3000;
+const port = 3001;
 const corsOptions = {
     origin: "https://localhost:3000",
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
