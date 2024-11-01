@@ -1,7 +1,5 @@
-import { any } from "zod";
 import Prisma from "../prismaClient";
 import { fetchGroupExpense } from "./fetchExpenseService";
-import { error } from "console";
 
 export const totalBill = async(groupId: number, userId: number)=>{
 
@@ -18,7 +16,7 @@ export const totalBill = async(groupId: number, userId: number)=>{
     for(let i=0; i<expenses.length; i++){
         finalSplit += expenses[i]*(splitPercentages[i]/100);
     }
-    
+
     return finalSplit;
     
    
