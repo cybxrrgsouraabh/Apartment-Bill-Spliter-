@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Prisma from "../prismaClient";
+import { fetchGroupExpense } from "../services/fetchExpenseService";
 
 // to  create a expense
 export const createExpense = async(req: Request, res: Response)=>{
@@ -41,3 +42,15 @@ export const deleteExpense = async(req: Request, res: Response)=>{
         res.status(500).json({error: "failed to delete the expenses"})
     }
 };
+
+// fetch all the expenses of a group 
+// export const groupExpenses = async(req: Request, res: Response)=>{
+//     const {groupId}= req.body;
+//     try{
+//         const expenses = await fetchGroupExpense(groupId);
+//         res.status(201).json(expenses);
+//     }
+//     catch (error){
+//         res.status(500).json({error: "an error occured while fetching the group expenses"})
+//     }
+// }

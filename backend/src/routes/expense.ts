@@ -14,6 +14,6 @@ router.get("/", getExpenses);
 // Delete an expense
 router.delete("/:id", deleteExpense);
 
-router.get("/amount", fetchGroupExpense);
+// router.get("/amount", groupExpenses);
 
 export default router;

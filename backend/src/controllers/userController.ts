@@ -1,5 +1,6 @@
 import {Request, Response} from "express";
 import Prisma from "../prismaClient";
+import { totalBill } from "../services/userTotalCalculation";
 
 // to enter users
 export const createUsers = async(req: Request, res: Response)=>{
@@ -40,3 +41,14 @@ export const deleteUsers = async(req: Request, res: Response)=>{
         res.status(500).json({error: "failed to delete the user"})
     }
 };
+
+export const userTotal = async(req: Request, res: Response)=>{
+    const {userId, groupId} = req.body;
+    
+    try {
+        const userTotalSplit = await totalBill(groupId, userId);
+        res.status(201).json(userTotalSplit);
+    } catch (error) {
+        res.status(500).json({error: "an error occured while generating the total bill of the user "})
+    }
+}
