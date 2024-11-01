@@ -1,12 +1,13 @@
 import express from "express";
 import { createExpense, deleteExpense, getExpenses } from "../controllers/expenseControllers";
-import { fetchGroupExpense } from "../services/fetchExpenseService";
+import { inputValidationMiddleWare } from "../middlewares/inputValidation";
+import { createExpenseSchema } from "../schema";
 
 const router = express.Router();
 
 
 // create a new expense
-router.post("/", createExpense);
+router.post("/", inputValidationMiddleWare(createExpenseSchema), createExpense);
 
 // get all the expense
 router.get("/", getExpenses);

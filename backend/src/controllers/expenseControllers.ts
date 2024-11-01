@@ -1,23 +1,33 @@
 import { Request, Response } from "express";
 import Prisma from "../prismaClient";
 import { fetchGroupExpense } from "../services/fetchExpenseService";
+import { createExpenseSchema } from "../schema";
 
 // to  create a expense
 export const createExpense = async(req: Request, res: Response)=>{
-    const {desc, amount, groupId} = req.body;
 
-    try{
-        const newExpense = await Prisma.expense.create({
-            data:{
-                description: desc,
-                amount,
-                groupId
-            }
-        })
-        res.status(201).json(newExpense);
-    }catch (error) {
-        res.status(500).json({error: "failed to create a new expense "})
+    
+    const inputValidation = createExpenseSchema.safeParse(req.body);
+    if(!inputValidation.success){
+        res.status(201).json({msg: "please enter a valid input"})
     }
+    else{
+        const {desc, amount, groupId} = req.body;
+        
+        try{
+            const newExpense = await Prisma.expense.create({
+                data:{
+                    description: desc,
+                    amount,
+                    groupId
+                }
+            })
+            res.status(201).json(newExpense);
+        }catch (error) {
+            res.status(500).json({error: "failed to create a new expense "})
+        }
+    }
+        
 };
 
 // to fetch all the expenses
