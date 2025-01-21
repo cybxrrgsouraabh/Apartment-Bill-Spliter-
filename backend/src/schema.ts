@@ -33,6 +33,19 @@ export const userTotalSchema = z.object({
     groupId: z.number().positive()
 });
 
+export const registeredUserSchema = z.object({
+    email: z.string().email(),
+    password: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    phoneNo: z.number().int().positive()
+});
+
+export const loginSchema = z.object({
+    email: z.string().email(),
+    password: z.string().max(32).min(8)
+})
 
 export type createExpenseInput = z.infer<typeof createExpenseSchema>;
 export type delExpType = z.infer<typeof deleteSchema>;
+export type regUserType = z.infer<typeof registeredUserSchema>;

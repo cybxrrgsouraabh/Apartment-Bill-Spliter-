@@ -58,6 +58,16 @@ model Split{
 }
 
 
+model registeredUser{
 
+  id Int @id @default(autoincrement())
+  email String @unique
+  password String 
+  firstName String 
+  lastName String
+  phoneNo Int @unique
+
+  created_at DateTime @default(now())
+}
 
 
