@@ -1,7 +1,8 @@
 import express from "express";
-import { createExpense, deleteExpense, getExpenses } from "../controllers/expenseControllers";
+import { createExpense, deleteExpense} from "../controllers/expenseControllers";
 import { inputValidationMiddleWare } from "../middlewares/inputValidation";
-import { createExpenseSchema } from "../schema";
+import { createExpenseSchema, deleteSchema } from "../schema";
+import { deleteMiddleware } from "../middlewares/deleteValidation";
 
 const router = express.Router();
 
@@ -9,11 +10,9 @@ const router = express.Router();
 // create a new expense
 router.post("/", inputValidationMiddleWare(createExpenseSchema), createExpense);
 
-// get all the expense
-router.get("/", getExpenses);
 
 // Delete an expense
-router.delete("/:id", deleteExpense);
+router.delete("/:id", deleteMiddleware(deleteSchema), deleteExpense);
 
 // router.get("/amount", groupExpenses);
 

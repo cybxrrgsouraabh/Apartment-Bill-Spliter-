@@ -1,17 +1,20 @@
 import { Response, Request, NextFunction } from "express";
-import { createExpenseInput } from "../schema";
 import { ZodSchema } from "zod";
 
-export  const inputValidationMiddleWare = (inputSchema: ZodSchema)=>{
+export const inputValidationMiddleWare = (userSchema: ZodSchema)=>{
     return (req: Request, res: Response, next: NextFunction)=>{
-        const inputValidation = inputSchema.safeParse(req.body);
-        if(!inputValidation.success){
-            res.status(400).json({
-                message: "Invalid input",
-                errors: inputValidation.error.errors
-            });
+        const inputValidation = userSchema.safeParse(req.body);
+        try {
+            if(!inputValidation.success){
+                res.status(500).json({msg:"please enter a valid input"})
+                return;
+            }
+
+            req.body = inputValidation.data;
+            next();
+        } catch (error) {
+            res.status(500).json({msg:"an internal error occured"})
         }
-        req.body = inputValidation.data;
-        next();
     }
-};
+}
+

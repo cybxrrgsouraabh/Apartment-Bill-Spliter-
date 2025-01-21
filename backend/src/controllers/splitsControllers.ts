@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Prisma from "../prismaClient";
 
-// to  create a expense
+// to  create a split
 export const createSplit = async(req: Request, res: Response)=>{
     const { percentage, userId, expenseId} = req.body;
 
@@ -21,17 +21,7 @@ export const createSplit = async(req: Request, res: Response)=>{
     }
 };
 
-// to fetch all the expenses
-export const getSplits = async(req: Request, res: Response)=>{
-    try{
-        const splits = await Prisma.split.findMany();
-        res.status(201).json(splits);
-    }catch (error) {
-        res.status(500).json({error: "failed to fetch all the splits"})
-    }
-};
-
-// to delete an expense 
+// to update an split 
 export const updateSplit = async(req: Request, res: Response)=>{
     const {id, percentage} = req.body;
     try{
@@ -45,3 +35,30 @@ export const updateSplit = async(req: Request, res: Response)=>{
     }
 };
 
+
+export const deleteSplit = async(req: Request, res: Response)=>{
+    const {id} = req.params;
+    const intID = parseInt(id);
+
+    try{
+
+        await Prisma.split.delete({
+            where: {id: intID}
+        });
+        res.status(200).json({msg: `the split has been removed`});
+    }
+    catch(err){
+        res.status(500).json({err: "an error occured while deleting the split"})
+    }
+}
+
+
+// to fetch all the expenses
+export const getSplits = async(req: Request, res: Response)=>{
+    try{
+        const splits = await Prisma.split.findMany();
+        res.status(201).json(splits);
+    }catch (error) {
+        res.status(500).json({error: "failed to fetch all the splits"})
+    }
+};

@@ -1,5 +1,6 @@
 import app from "./app";
-import cors from "cors"
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const port = 3000;
 const corsOptions = {
@@ -10,7 +11,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
+app.use(cookieParser());
 
 app.listen(port, ()=>{
     console.log("the server is up!!")

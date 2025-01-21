@@ -40,8 +40,9 @@ export const getGroups = async (req: Request, res: Response)=>{
 
 export const deleteGroup = async(req: Request, res: Response)=>{
     const {id} = req.params;
+    const intID = parseInt(id);
     try {
-        const delGroup = await Prisma.group.delete({where:{id: parseInt(id)}})
+        const delGroup = await Prisma.group.delete({where:{id: intID}})
         res.status(201).json(`deleted the ${delGroup.group_name} group successfully`);
     } catch (error) {
         res.status(500).json({

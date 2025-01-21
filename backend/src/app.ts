@@ -1,5 +1,4 @@
 import express from "express";
-import cors from "cors"
 import userRouter from "./routes/users"
 import expenseRouter from "./routes/expense"
 import groupRouter from "./routes/groups"

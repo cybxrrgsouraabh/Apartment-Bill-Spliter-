@@ -19,6 +19,21 @@ export const createUsers = async(req: Request, res: Response)=>{
     }
 };
 
+
+// to delete an user 
+export const deleteUsers = async(req: Request, res: Response)=>{
+    const {id} = req.params;
+    const intID = parseInt(id);
+    try{
+        const users = await Prisma.user.delete({
+            where:{id: intID,},
+        });
+        res.status(201).json(`${users.name} Deleted Successfully`);
+    }catch (error) {
+        res.status(500).json({error: "failed to delete the user"})
+    }
+};
+
 // to fetch all the users
 export const getUsers = async(req: Request, res: Response)=>{
     try{
@@ -26,19 +41,6 @@ export const getUsers = async(req: Request, res: Response)=>{
         res.status(201).json(users);
     }catch (error) {
         res.status(500).json({error: "failed to fetch the users"})
-    }
-};
-
-// to delete an user 
-export const deleteUsers = async(req: Request, res: Response)=>{
-    const {id} = req.params;
-    try{
-        const users = await Prisma.user.delete({
-            where:{id: parseInt(id)}
-        });
-        res.status(201).json(`${users.name} Deleted Successfully`);
-    }catch (error) {
-        res.status(500).json({error: "failed to delete the user"})
     }
 };
 
