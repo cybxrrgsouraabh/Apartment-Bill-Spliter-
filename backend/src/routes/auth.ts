@@ -13,5 +13,4 @@ router.post("/signup", inputValidationMiddleWare(registeredUserSchema), register
 router.post("/login", inputValidationMiddleWare(loginSchema), loginUser);
 
 
-
 export default router;

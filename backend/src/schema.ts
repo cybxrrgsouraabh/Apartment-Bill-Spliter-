@@ -38,12 +38,14 @@ export const registeredUserSchema = z.object({
     password: z.string(),
     firstName: z.string(),
     lastName: z.string(),
-    phoneNo: z.number().int().positive()
+    phoneNo: z.number().int().positive(),
+    role: z.string().optional()
 });
 
 export const loginSchema = z.object({
     email: z.string().email(),
-    password: z.string().max(32).min(8)
+    password: z.string().max(32).min(8),
+    role: z.string().optional()
 })
 
 export type createExpenseInput = z.infer<typeof createExpenseSchema>;

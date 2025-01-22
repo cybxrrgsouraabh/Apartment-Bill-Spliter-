@@ -10,7 +10,7 @@ export const jwtAuthMiddleware =async (req: Request, res: Response, next: NextFu
     const Token: string = splitToken[1];
 
     const verified:any = jwt.verify(Token, JWT_SECRET_KEY);
-    if(!verified.email){
+    if(!verified.email && !verified.role){
         req.body = verified.email;
         next();
     }

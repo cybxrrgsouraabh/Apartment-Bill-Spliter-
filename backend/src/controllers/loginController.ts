@@ -6,7 +6,7 @@ import JWT_SECRET_KEY from "../config";
 
 export const loginUser = async(req: Request, res: Response)=>{
 
-    const {email, password} = req.body;
+    const {email, password, role} = req.body;
     const exists = await Prisma.registeredUser.findUnique({
         where: {email}
     });
@@ -18,18 +18,19 @@ export const loginUser = async(req: Request, res: Response)=>{
 
         const loginInfo = await Prisma.registeredUser.findUnique({
             where: {email,
-                password
+                password,
+                role
             }
         })
-        const token = jwt.sign({email: loginInfo?.email}, JWT_SECRET_KEY);
-        res.status(500).json({
+        const token = jwt.sign({email: loginInfo?.email, role: loginInfo?.role}, JWT_SECRET_KEY);
+        res.status(200).json({
             msg: "Logged in successfully",
-            token: token
+            token: `Bearer ${token}`
         })
 
 
     }
     catch(err){
-        res.status(500).json({err: "Error occured while logining the user"});
+        res.status(500).json({err: "Either email or password is wrong"});
     }
 }

@@ -66,7 +66,7 @@ model registeredUser{
   firstName String 
   lastName String
   phoneNo Int @unique
-
+  role String @default("user") //admin or user
   created_at DateTime @default(now())
 }
 
