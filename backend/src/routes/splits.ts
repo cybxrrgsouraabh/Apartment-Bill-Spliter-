@@ -3,19 +3,20 @@ import { createSplit, deleteSplit, getSplits, updateSplit } from "../controllers
 import { inputValidationMiddleWare } from "../middlewares/inputValidation";
 import { createSplitSchema, deleteSchema, updateSplitSchema } from "../schema";
 import { deleteMiddleware } from "../middlewares/deleteValidation";
+import { jwtAuthMiddleware } from "../middlewares/authMiddleware";
 
 const router = express.Router();
 
 
 // to add the splits
-router.post("/", inputValidationMiddleWare(createSplitSchema),createSplit);
+router.post("/", jwtAuthMiddleware,inputValidationMiddleWare(createSplitSchema),createSplit);
 
 // to update/edit the splits
-router.put("/", inputValidationMiddleWare(updateSplitSchema),updateSplit);
+router.put("/", jwtAuthMiddleware,inputValidationMiddleWare(updateSplitSchema),updateSplit);
 
 // to get all the splits 
 router.get("/", getSplits);
 
-router.delete("/:id", deleteMiddleware(deleteSchema), deleteSplit);
+router.delete("/:id", jwtAuthMiddleware,deleteMiddleware(deleteSchema), deleteSplit);
 
 export default router;

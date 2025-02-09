@@ -3,8 +3,19 @@ import Prisma from "../prismaClient";
 import { totalBill } from "../services/userTotalCalculation";
 
 // to enter users
-export const createUsers = async(req: Request, res: Response)=>{
+export const createUsers = async(req: Request, res: Response): Promise<void>=>{
     const {name, email} = req.body;
+    console.log(req.body)
+    const exists = await Prisma.user.findUnique({
+        where: {
+            name,
+            email
+        }
+    })
+    console.log(exists);
+    if(exists){
+        res.status(500).json({msg: "the user with same name or email already exists"});
+    }
 
     try{
         const newUser = await Prisma.user.create({
@@ -13,10 +24,12 @@ export const createUsers = async(req: Request, res: Response)=>{
                 email
             }
         })
-        res.status(201).json(newUser);
-    }catch (error) {
-        res.status(500).json({error: "failed to create the user "})
+            res.status(201).json(newUser);
     }
+    catch (error: any) {
+        res.status(500).json({error: error.message})
+    }
+
 };
 
 

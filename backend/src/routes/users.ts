@@ -3,18 +3,19 @@ import { createUsers, deleteUsers, getUsers, userTotal } from "../controllers/us
 import { inputValidationMiddleWare } from "../middlewares/inputValidation";
 import { createUsersSchema, deleteSchema, userTotalSchema } from "../schema";
 import { deleteMiddleware } from "../middlewares/deleteValidation";
+import { jwtAuthMiddleware } from "../middlewares/authMiddleware";
 
 const router = express.Router();
 
 // create a new users
-router.post("/", inputValidationMiddleWare(createUsersSchema), createUsers);
+router.post("/", jwtAuthMiddleware,inputValidationMiddleWare(createUsersSchema), createUsers);
 
 // Delete an user
-router.delete("/:id", deleteMiddleware(deleteSchema), deleteUsers);
+router.delete("/:id", jwtAuthMiddleware,deleteMiddleware(deleteSchema), deleteUsers);
 
 // get all the users
 router.get("/", getUsers);
 
-router.post("/split", inputValidationMiddleWare(userTotalSchema), userTotal);
+router.post("/split", jwtAuthMiddleware, inputValidationMiddleWare(userTotalSchema), userTotal);
 
-export default router;
+export default router; 

@@ -65,7 +65,7 @@ model registeredUser{
   password String 
   firstName String 
   lastName String
-  phoneNo Int @unique
+  phoneNo BigInt @unique
 
   created_at DateTime @default(now())
 }
