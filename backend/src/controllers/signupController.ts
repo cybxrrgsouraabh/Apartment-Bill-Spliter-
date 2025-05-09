@@ -37,13 +37,14 @@ export const registerUser = async (req:Request, res: Response)=>{
             });
     
         }catch(err: any){
-            res.status(500).json({ error: err.message });
+            console.error(err);
+            res.status(400).json({ error: "something went wrong. Please try again later." });
         }
 
     }
 
     else{
-        res.status(500).json({
+        res.status(409).json({
             msg: " the user already exists, please login"
         })
     }

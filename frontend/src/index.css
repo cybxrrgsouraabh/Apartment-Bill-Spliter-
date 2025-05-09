@@ -1,7 +1,14 @@
+@import url(https://db.onlinewebfonts.com/c/d4f20dfedfdf197ed0ac52b09bf25551?family=GT+Walsheim+Pro+Medium+Regular);
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-GTWalsheim: "GT Walsheim Pro Medium Regular", sans-serif; 
+}
+
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
