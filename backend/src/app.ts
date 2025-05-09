@@ -4,8 +4,16 @@ import expenseRouter from "./routes/expense"
 import groupRouter from "./routes/groups"
 import splitRouter from "./routes/splits"
 import authRouter from "./routes/auth"
+import cors from "cors";
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 

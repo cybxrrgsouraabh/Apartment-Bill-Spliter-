@@ -6,7 +6,6 @@ const port = 3000;
 
 
 
-app.use(cors());
 app.use(cookieParser());
 
 app.listen(port, ()=>{
